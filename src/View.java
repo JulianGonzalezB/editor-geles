@@ -29,13 +29,10 @@ public class View {
 	private JComboBox<String> numberOfRows= null;
 	private String messagePhoto= "  ...";
 	private String messageLabels= "  ...";
-	private BufferedImage originalBI= null;
-	private File labelsCSV= null;
 	private JComboBox<String> orientationBox= null;
 	private JComboBox<String> textColorBox= null;
 	private JComboBox<String> fontSizeBox= null;
 	private Editor editor= new Editor();
-	private String saveLocation= null;
 
 	/**
 	 * Launch the application.
@@ -156,7 +153,7 @@ public class View {
 		JLabel lblLoadPhoto = new JLabel(this.messagePhoto);
 		lblLoadPhoto.setBackground(Color.WHITE);
 		lblLoadPhoto.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblLoadPhoto.setBounds(154, 63, 243, 28);
+		lblLoadPhoto.setBounds(165, 63, 332, 28);
 		frame.getContentPane().add(lblLoadPhoto);
 		lblLoadPhoto.setBorder(this.createBorder());
 		lblLoadPhoto.setOpaque(true);
@@ -176,9 +173,8 @@ public class View {
 					{
 						try
 						{
-							originalBI= ImageIO.read(openPhoto.getSelectedFile());
-							lblLoadPhoto.setText("  Photo successfully loaded...");
-							editor.setPhoto(originalBI);
+							lblLoadPhoto.setText(openPhoto.getSelectedFile().toString());
+							editor.setPhoto(openPhoto.getSelectedFile());
 						}
 						catch (IOException ioe)
 						{
@@ -193,7 +189,7 @@ public class View {
 			
 		});
 		btnOpenPhoto.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnOpenPhoto.setBounds(22, 63, 124, 28);
+		btnOpenPhoto.setBounds(22, 63, 133, 28);
 		frame.getContentPane().add(btnOpenPhoto);
 	}
 	
@@ -205,7 +201,7 @@ public class View {
 		JLabel lblLoadLabels = new JLabel(this.messageLabels);
 		lblLoadLabels.setBackground(Color.WHITE);
 		lblLoadLabels.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblLoadLabels.setBounds(154, 102, 243, 28);
+		lblLoadLabels.setBounds(165, 102, 332, 28);
 		frame.getContentPane().add(lblLoadLabels);
 		lblLoadLabels.setBorder(this.createBorder());
 		lblLoadLabels.setOpaque(true);
@@ -225,9 +221,8 @@ public class View {
 				{
 					try
 					{
-						labelsCSV= openLabels.getSelectedFile();
-						lblLoadLabels.setText("  File successfully loaded...");
-						editor.setLabels(labelsCSV);
+						lblLoadLabels.setText(openLabels.getSelectedFile().toString());
+						editor.setLabels(openLabels.getSelectedFile());
 					}
 					catch (RuntimeException rte)
 					{
@@ -241,7 +236,7 @@ public class View {
 		});
 		
 		btnOpenLabels.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnOpenLabels.setBounds(22, 102, 124, 28);
+		btnOpenLabels.setBounds(22, 102, 133, 28);
 		frame.getContentPane().add(btnOpenLabels);
 	}
 	
@@ -353,9 +348,9 @@ public class View {
 	private void loadSaveLocation()
 	{
 		JLabel lblSaveLocation = new JLabel("  ...");
-		lblSaveLocation.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblSaveLocation.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblSaveLocation.setBackground(UIManager.getColor("Button.highlight"));
-		lblSaveLocation.setBounds(154, 141, 243, 28);
+		lblSaveLocation.setBounds(165, 141, 332, 28);
 		frame.getContentPane().add(lblSaveLocation);
 		lblSaveLocation.setBorder(this.createBorder());
 		lblSaveLocation.setOpaque(true);
@@ -375,7 +370,6 @@ public class View {
 				{
 					try
 					{
-						saveLocation= location.getSelectedFile().toString();
 						lblSaveLocation.setText(location.getSelectedFile().toString());
 						editor.setSaveLocation(location.getSelectedFile().toString());
 					}
@@ -390,7 +384,7 @@ public class View {
 			}
 		});
 		btnSaveLocation.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnSaveLocation.setBounds(22, 141, 122, 28);
+		btnSaveLocation.setBounds(22, 141, 133, 28);
 		frame.getContentPane().add(btnSaveLocation);
 	}
 }

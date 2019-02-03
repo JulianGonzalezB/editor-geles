@@ -15,7 +15,7 @@ import javax.swing.JLabel;
 public class Editor {
 	
 	private BufferedImage originalBI= null;
-	private BufferedImage mostRecentImg= null;
+	private BufferedImage imageToEdit= null;
 	
 	private int numberOfCols= 10;
 	private int numberOfRows= 1;
@@ -35,7 +35,7 @@ public class Editor {
 	private int infoHeight= 10;
 	private int infoLeftMargin= 15;
 	
-	private String [] concatenatedLabels= null;
+	private String [] finalLabels= null;
 	private int labelsHeight= 25;
 	
 	private String saveLocationSelected= null;
@@ -43,10 +43,11 @@ public class Editor {
 	/**
 	 * 
 	 * @param photo
+	 * @throws IOException 
 	 */
-	public void setPhoto(BufferedImage photo)
+	public void setPhoto(File photo) throws IOException
 	{
-		this.originalBI= photo;
+		this.originalBI= ImageIO.read(photo);
 	}
 	
 	/**
@@ -160,8 +161,10 @@ public class Editor {
 	{
 		try
 		{
-			BufferedImage imageToEdit= this.originalBI;
-			Graphics graphics= imageToEdit.getGraphics();
+			this.imageToEdit= this.originalBI;
+			int height= this.imageToEdit.getHeight();
+			int width= this.imageToEdit.getWidth();
+			Graphics graphics= this.imageToEdit.getGraphics();
 			
 			if(this.colorOfText.equals("White"))
 			{
@@ -175,26 +178,26 @@ public class Editor {
 			graphics.setFont(new Font("Arial Black", Font.PLAIN, this.fontSize));
 			
 			//Draw the info of the gel
-			graphics.drawString(this.info, this.infoLeftMargin, imageToEdit.getHeight() - this.infoHeight);
+			graphics.drawString(this.info, this.infoLeftMargin, height - this.infoHeight);
 			
-			for(int channel = 0; channel < this.numberOfCols; channel++)
+			for(int channel = 0; channel < this.finalLabels.length; channel++)
 			{
-				graphics.drawString(this.concatenatedLabels[channel], (channel + 1)  * (imageToEdit.getWidth() / this.numberOfCols), this.labelsHeight);
+				graphics.drawString(this.finalLabels[channel], (channel + 1) * (width / this.finalLabels.length), this.labelsHeight);
 			}
 			
 			if(this.numberOfRows == 2)
 			{
 				for(int channel = 0; channel < this.numberOfCols; channel++)
 				{
-					graphics.drawString(this.concatenatedLabels[this.numberOfCols + channel], (channel + 1)  * (imageToEdit.getWidth() / this.numberOfCols), (imageToEdit.getHeight() / 4) - this.labelsHeight);
+					graphics.drawString(this.finalLabels[this.numberOfCols - 1 + channel], (channel + 1)  * (width / this.numberOfCols), (height / 4) - this.labelsHeight);
 				}
 			}
 			
-			this.mostRecentImg= imageToEdit;
 		}
 		catch(Exception e)
 		{
-			this.errorMessage= "	.jpg file not found.	Please select a file and try again";
+			System.err.println(e);
+			this.errorMessage= "ERROR IN EDITING IMAGE";
 			this.showErrorWindow();
 		}
 	}
@@ -207,11 +210,11 @@ public class Editor {
 	{
 		try
 		{
-			ImageIO.write(this.mostRecentImg, "jpg", new File(this.saveLocationSelected));
+			ImageIO.write(this.imageToEdit, "JPEG File", new File(this.saveLocationSelected));
 		}
 		catch(IOException e)
 		{
-			this.errorMessage= "Invalid Save destination";
+			this.errorMessage= "Error in saving the edited image.";
 			this.showErrorWindow();
 		}
 	}
@@ -271,23 +274,21 @@ public class Editor {
 	 */
 	private void concatenateLabels()
 	{
-		String [] finalLabels= new String[this.numberOfCols];
+		this.finalLabels= new String[this.numberOfCols * this.numberOfRows];
 		String currentLabel= "";
 		int rowOfLabel= 6;
 		
-		for(int row = 0; row < this.numberOfRows; row++)
+		for(int hole = 0; hole < this.numberOfCols * this.numberOfRows; hole++)
 		{
 			for(int col = 0; col < this.numberOfColsInFile; col++)
 			{
 				currentLabel += this.dataFromLabels[rowOfLabel][col];
 			}
 			
-			finalLabels[row]= currentLabel;
+			this.finalLabels[hole]= currentLabel;
 			currentLabel= "";
 			rowOfLabel++;
 		}
-		
-		this.concatenatedLabels= finalLabels;
 	}
 	
 	/**
