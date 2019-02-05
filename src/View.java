@@ -309,10 +309,13 @@ public class View {
 		fontSizeBox.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		fontSizeBox.setBounds(451, 248, 68, 26);
 		frame.getContentPane().add(fontSizeBox);
-		this.fontSizeBox.addItem("9");
-		this.fontSizeBox.addItem("10");
-		this.fontSizeBox.addItem("11");
-		this.fontSizeBox.addItem("12");
+		this.fontSizeBox.addItem("30");
+		this.fontSizeBox.addItem("35");
+		this.fontSizeBox.addItem("40");
+		this.fontSizeBox.addItem("50");
+		this.fontSizeBox.addItem("60");
+		this.fontSizeBox.addItem("70");
+		this.fontSizeBox.addItem("80");
 	}
 	
 	/**

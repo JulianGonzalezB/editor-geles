@@ -21,7 +21,7 @@ public class Editor {
 	private int numberOfRows= 1;
 	private String colorOfText= "White";
 	private String orientation= "Horizontal";
-	private int fontSize= 9;
+	private int fontSize= 20;
 	
 	private File labelsCSV= null;
 	private String [][] dataFromLabels= null;
@@ -136,11 +136,11 @@ public class Editor {
 			
 			if (this.dataFromLabels[0][1].equals("PCR") || this.dataFromLabels[0][1].equals("pcr") || this.dataFromLabels[0][1].equals("Pcr"))
 			{
-				this.dataFromLabels[1][0]= "Primer";
+				this.dataFromLabels[2][0]= "Primer:";
 			}
 			else
 			{
-				this.dataFromLabels[1][0]= "Protocolo";
+				this.dataFromLabels[2][0]= "Protocolo:";
 			}
 			
 			this.concatenateInfo();
@@ -210,10 +210,12 @@ public class Editor {
 	{
 		try
 		{
-			ImageIO.write(this.imageToEdit, "JPEG File", new File(this.saveLocationSelected));
+			ImageIO.write(this.imageToEdit, "jpg", new File(this.saveLocationSelected));
+			
 		}
 		catch(IOException e)
 		{
+			System.err.println(e);
 			this.errorMessage= "Error in saving the edited image.";
 			this.showErrorWindow();
 		}
@@ -224,7 +226,6 @@ public class Editor {
 	 */
 	private void showErrorWindow()
 	{
-		//Esto no funciona
 		this.errorWindow= new JFrame();
 		this.errorWindow.getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 15));
 		this.errorWindow.setSize(260, 180);
