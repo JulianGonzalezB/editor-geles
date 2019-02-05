@@ -36,7 +36,7 @@ public class Editor {
 	private int infoLeftMargin= 15;
 	
 	private String [] finalLabels= null;
-	private int labelsHeight= 25;
+	private int labelsHeight= 60;
 	
 	private String saveLocationSelected= null;
 	

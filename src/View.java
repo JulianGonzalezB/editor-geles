@@ -63,7 +63,7 @@ public class View {
 	private void initialize() {
 		frame = new JFrame();
 		frame.getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 15));
-		frame.setSize(640, 480);
+		frame.setSize(768, 480);
 		frame.setTitle("GELS EDITOR");
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -271,9 +271,9 @@ public class View {
 		lblFontSize.setBounds(359, 251, 82, 20);
 		frame.getContentPane().add(lblFontSize);
 		
-		JLabel lblOrientation = new JLabel("Orientation:");
+		JLabel lblOrientation = new JLabel("Info. Orientation:");
 		lblOrientation.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblOrientation.setBounds(207, 293, 89, 28);
+		lblOrientation.setBounds(10, 293, 134, 28);
 		frame.getContentPane().add(lblOrientation);
 		
 		this.orientationBox = new JComboBox<String>();
@@ -283,7 +283,7 @@ public class View {
 			}
 		});
 		orientationBox.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		orientationBox.setBounds(294, 294, 103, 26);
+		orientationBox.setBounds(154, 294, 103, 26);
 		frame.getContentPane().add(orientationBox);
 		this.orientationBox.addItem("Horizontal");
 		this.orientationBox.addItem("Vertical");
