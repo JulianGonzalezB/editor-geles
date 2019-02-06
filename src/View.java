@@ -153,7 +153,7 @@ public class View {
 		JLabel lblLoadPhoto = new JLabel(this.messagePhoto);
 		lblLoadPhoto.setBackground(Color.WHITE);
 		lblLoadPhoto.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblLoadPhoto.setBounds(165, 63, 332, 28);
+		lblLoadPhoto.setBounds(165, 63, 414, 28);
 		frame.getContentPane().add(lblLoadPhoto);
 		lblLoadPhoto.setBorder(this.createBorder());
 		lblLoadPhoto.setOpaque(true);
@@ -201,7 +201,7 @@ public class View {
 		JLabel lblLoadLabels = new JLabel(this.messageLabels);
 		lblLoadLabels.setBackground(Color.WHITE);
 		lblLoadLabels.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblLoadLabels.setBounds(165, 102, 332, 28);
+		lblLoadLabels.setBounds(165, 102, 414, 28);
 		frame.getContentPane().add(lblLoadLabels);
 		lblLoadLabels.setBorder(this.createBorder());
 		lblLoadLabels.setOpaque(true);
@@ -252,7 +252,7 @@ public class View {
 			}
 		});
 		buttonRunEdition.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		buttonRunEdition.setBounds(229, 380, 142, 28);
+		buttonRunEdition.setBounds(335, 380, 142, 28);
 		frame.getContentPane().add(buttonRunEdition);
 	}
 	
@@ -330,7 +330,7 @@ public class View {
 			}
 		});
 		btnHelp.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnHelp.setBounds(496, 29, 89, 23);
+		btnHelp.setBounds(653, 11, 89, 23);
 		frame.getContentPane().add(btnHelp);
 		
 	}
@@ -353,7 +353,7 @@ public class View {
 		JLabel lblSaveLocation = new JLabel("  ...");
 		lblSaveLocation.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblSaveLocation.setBackground(UIManager.getColor("Button.highlight"));
-		lblSaveLocation.setBounds(165, 141, 332, 28);
+		lblSaveLocation.setBounds(165, 141, 414, 28);
 		frame.getContentPane().add(lblSaveLocation);
 		lblSaveLocation.setBorder(this.createBorder());
 		lblSaveLocation.setOpaque(true);

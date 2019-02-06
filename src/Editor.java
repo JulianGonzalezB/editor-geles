@@ -32,11 +32,8 @@ public class Editor {
 	private JFrame errorWindow= null;
 	
 	private String info= null;
-	private int infoHeight= 10;
-	private int infoLeftMargin= 15;
 	
 	private String [] finalLabels= null;
-	private int labelsHeight= 60;
 	
 	private String saveLocationSelected= null;
 	
@@ -107,6 +104,7 @@ public class Editor {
 		this.readLabels();
 		this.writeLabels();
 		this.exportImage();
+		this.imageToEdit= null;
 	}
 	
 	/**
@@ -145,6 +143,7 @@ public class Editor {
 			
 			this.concatenateInfo();
 			this.concatenateLabels();
+			scanner.close();
 			
 		}
 		catch (FileNotFoundException e)
@@ -165,6 +164,7 @@ public class Editor {
 			int height= this.imageToEdit.getHeight();
 			int width= this.imageToEdit.getWidth();
 			Graphics graphics= this.imageToEdit.getGraphics();
+			int XSegment= width / (this.finalLabels.length / this.numberOfRows);
 			
 			if(this.colorOfText.equals("White"))
 			{
@@ -178,18 +178,18 @@ public class Editor {
 			graphics.setFont(new Font("Arial Black", Font.PLAIN, this.fontSize));
 			
 			//Draw the info of the gel
-			graphics.drawString(this.info, this.infoLeftMargin, height - this.infoHeight);
+			graphics.drawString(this.info, width / 17, 24 * height / 25);
 			
-			for(int channel = 0; channel < this.finalLabels.length; channel++)
+			for(int channel = 0; channel < this.finalLabels.length / this.numberOfRows; channel++)
 			{
-				graphics.drawString(this.finalLabels[channel], (channel + 1) * (width / this.finalLabels.length), this.labelsHeight);
+				graphics.drawString(this.finalLabels[channel], (channel) * XSegment, height / 7 - 45);
 			}
 			
 			if(this.numberOfRows == 2)
 			{
-				for(int channel = 0; channel < this.numberOfCols; channel++)
+				for(int channel = 0; channel < this.finalLabels.length / this.numberOfRows; channel++)
 				{
-					graphics.drawString(this.finalLabels[this.numberOfCols - 1 + channel], (channel + 1)  * (width / this.numberOfCols), (height / 4) - this.labelsHeight);
+					graphics.drawString(this.finalLabels[this.numberOfCols + channel], (channel)  * XSegment, 2 * (height / 3) + 40);
 				}
 			}
 			
