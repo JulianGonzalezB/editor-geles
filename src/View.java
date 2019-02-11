@@ -2,6 +2,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -17,6 +18,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.concurrent.TimeUnit;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.SystemColor;
@@ -25,14 +30,23 @@ import javax.swing.UIManager;
 public class View {
 
 	private JFrame frame;
+	
 	private JComboBox<String> numberOfCols= null;
 	private JComboBox<String> numberOfRows= null;
+	
 	private String messagePhoto= "  ...";
 	private String messageLabels= "  ...";
+	
 	private JComboBox<String> orientationBox= null;
 	private JComboBox<String> textColorBox= null;
 	private JComboBox<String> fontSizeBox= null;
+	
 	private Editor editor= new Editor();
+	private JFrame keyWindow;
+	
+	private String localKey= "XZF2#thOwe789";
+	private boolean permission= false;
+	private JTextField txtKey;
 
 	/**
 	 * Launch the application.
@@ -42,7 +56,7 @@ public class View {
 			public void run() {
 				try {
 					View window = new View();
-					window.frame.setVisible(true);
+					window.frame.setVisible(false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -53,8 +67,10 @@ public class View {
 	/**
 	 * Create the application.
 	 */
-	public View() {
-		initialize();
+	public View()
+	{
+		this.initialize();
+		this.checkIfFirstTime();
 	}
 
 	/**
@@ -389,5 +405,77 @@ public class View {
 		btnSaveLocation.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnSaveLocation.setBounds(22, 141, 133, 28);
 		frame.getContentPane().add(btnSaveLocation);
+	}
+	
+	/**
+	 * 
+	 */
+	private  void checkIfFirstTime()
+	{
+		Path path= Paths.get("C:\\Program Files (x86)\\Gels_Editor");
+		if(Files.notExists(path))
+		{
+			this.keyWindow();
+		}
+		else
+		{
+			this.permission= true;
+		}
+	}
+	
+	/**
+	 * 
+	 */
+	private void keyWindow()
+	{
+		this.keyWindow= new JFrame();
+		this.keyWindow.getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 20));
+		this.keyWindow.setSize(390, 180);
+		this.keyWindow.setTitle("KEY NEEDED TO INSTALL GELS EDITOR");
+		this.keyWindow.setLocationRelativeTo(null);
+		this.keyWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.keyWindow.getContentPane().setLayout(null);
+		
+		JLabel lblKeyLabel = new JLabel("Insert the key:");
+		lblKeyLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblKeyLabel.setToolTipText("");
+		lblKeyLabel.setBounds(10, 47, 98, 19);
+		keyWindow.getContentPane().add(lblKeyLabel);
+		
+		txtKey = new JTextField();
+		txtKey.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent arg0) {
+				isKeyCorrect(txtKey.getText());
+			}
+		});
+		txtKey.setBounds(107, 48, 98, 20);
+		keyWindow.getContentPane().add(txtKey);
+		txtKey.setColumns(10);
+		this.keyWindow.setVisible(true);
+		this.keyWindow.toFront();
+		this.keyWindow.repaint();
+	}
+	
+	/**
+	 * 
+	 */
+	private void isKeyCorrect(String insertedKey)
+	{
+		if(this.localKey.equals(insertedKey))
+		{
+			this.permission= true;
+			this.keyWindow.setVisible(false);
+			this.frame.setVisible(true);
+			this.createNewFolder();
+		}
+	}
+	
+	/**
+	 * 
+	 */
+	private void createNewFolder()
+	{
+		
 	}
 }

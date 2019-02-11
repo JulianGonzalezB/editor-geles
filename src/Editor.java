@@ -20,7 +20,7 @@ public class Editor {
 	private int numberOfCols= 10;
 	private int numberOfRows= 1;
 	private String colorOfText= "White";
-	private String orientation= "Horizontal";
+	private String infOrientation= "Horizontal";
 	private int fontSize= 20;
 	
 	private File labelsCSV= null;
@@ -31,7 +31,7 @@ public class Editor {
 	private String errorMessage= null;
 	private JFrame errorWindow= null;
 	
-	private String info= null;
+	private String concatenatedInfo= null;
 	
 	private String [] finalLabels= null;
 	
@@ -85,7 +85,7 @@ public class Editor {
 	 */
 	public void setOrientation(String orientation)
 	{
-		this.orientation= orientation;
+		this.infOrientation= orientation;
 	}
 	
 	/**
@@ -178,8 +178,21 @@ public class Editor {
 			graphics.setFont(new Font("Arial Black", Font.PLAIN, this.fontSize));
 			
 			//Draw the info of the gel
-			graphics.drawString(this.info, width / 17, 24 * height / 25);
+			//If Horizontal is selected
+			if(this.infOrientation.equals("Horizontal"))
+			{
+				graphics.drawString(this.concatenatedInfo, width / 17, 24 * height / 25);
+			}
+			else
+			{
+				//If vertical is selected
+				for(int row= 0; row < this.numberOfInfoRows; row++)
+				{
+					graphics.drawString(this.dataFromLabels[row][1], width / 20, height / 2 + this.fontSize + 5);
+				}
+			}
 			
+			//Draw the labels in the holes
 			for(int channel = 0; channel < this.finalLabels.length / this.numberOfRows; channel++)
 			{
 				graphics.drawString(this.finalLabels[channel], (channel) * XSegment, height / 7 - 45);
@@ -232,8 +245,8 @@ public class Editor {
 		this.errorWindow.setTitle("ERROR");
 		this.errorWindow.setLocationRelativeTo(null);
 		this.errorWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.errorWindow.getContentPane().setLayout(null);
 		BorderLayout layout= new BorderLayout();
+		this.errorWindow.getContentPane().setLayout(layout);
 		this.errorWindow.setLayout(layout);
 		
 		JLabel error = new JLabel(this.errorMessage);
@@ -250,6 +263,7 @@ public class Editor {
 	private void concatenateInfo()
 	{
 		String infoString= "";
+		
 		for(int row = 0; row < this.numberOfInfoRows; row++)
 		{
 			for(int col = 0; col < this.numberOfColsInFile; col++)
@@ -266,7 +280,7 @@ public class Editor {
 			}
 		}
 		
-		this.info= infoString;
+		this.concatenatedInfo= infoString;
 		
 	}
 	
