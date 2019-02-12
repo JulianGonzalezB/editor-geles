@@ -40,6 +40,7 @@ public class View {
 	private JComboBox<String> orientationBox= null;
 	private JComboBox<String> textColorBox= null;
 	private JComboBox<String> fontSizeBox= null;
+	private JComboBox<String> infoSizeBox= null;
 	
 	private Editor editor= new Editor();
 	private JFrame keyWindow;
@@ -57,6 +58,11 @@ public class View {
 				try {
 					View window = new View();
 					window.frame.setVisible(false);
+					Path path= Paths.get("C:\\Users\\Karina\\Desktop\\Gels_editor");
+					if(Files.exists(path))
+					{
+						window.frame.setVisible(true);
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -289,7 +295,7 @@ public class View {
 		
 		JLabel lblOrientation = new JLabel("Info. Orientation:");
 		lblOrientation.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblOrientation.setBounds(10, 293, 134, 28);
+		lblOrientation.setBounds(21, 283, 134, 28);
 		frame.getContentPane().add(lblOrientation);
 		
 		this.orientationBox = new JComboBox<String>();
@@ -299,10 +305,10 @@ public class View {
 			}
 		});
 		orientationBox.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		orientationBox.setBounds(154, 294, 103, 26);
+		orientationBox.setBounds(154, 284, 103, 26);
 		frame.getContentPane().add(orientationBox);
-		this.orientationBox.addItem("Horizontal");
 		this.orientationBox.addItem("Vertical");
+		this.orientationBox.addItem("Horizontal");
 		
 		this.textColorBox = new JComboBox<String>();
 		textColorBox.addActionListener(new ActionListener() {
@@ -332,6 +338,28 @@ public class View {
 		this.fontSizeBox.addItem("60");
 		this.fontSizeBox.addItem("70");
 		this.fontSizeBox.addItem("80");
+		
+		JLabel lblInfoFontSize = new JLabel("Info. Font size:");
+		lblInfoFontSize.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblInfoFontSize.setBounds(329, 286, 112, 23);
+		frame.getContentPane().add(lblInfoFontSize);
+		
+		this.infoSizeBox= new JComboBox();
+		infoSizeBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				editor.setInfoSize(Integer.parseInt(infoSizeBox.getSelectedItem().toString()));
+			}
+		});
+		infoSizeBox.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		infoSizeBox.setBounds(451, 286, 68, 26);
+		frame.getContentPane().add(this.infoSizeBox);
+		this.infoSizeBox.addItem("30");
+		this.infoSizeBox.addItem("35");
+		this.infoSizeBox.addItem("40");
+		this.infoSizeBox.addItem("50");
+		this.infoSizeBox.addItem("60");
+		this.infoSizeBox.addItem("70");
+		this.infoSizeBox.addItem("80");
 	}
 	
 	/**
@@ -348,7 +376,6 @@ public class View {
 		btnHelp.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnHelp.setBounds(653, 11, 89, 23);
 		frame.getContentPane().add(btnHelp);
-		
 	}
 	
 	/**
@@ -394,7 +421,7 @@ public class View {
 					}
 					catch (Exception ioe)
 					{
-						lblSaveLocation.setText("  You must selec a location");
+						lblSaveLocation.setText("  You must selec Name and Location");
 					}
 				}
 				else {
@@ -412,7 +439,7 @@ public class View {
 	 */
 	private  void checkIfFirstTime()
 	{
-		Path path= Paths.get("C:\\Program Files (x86)\\Gels_Editor");
+		Path path= Paths.get("C:\\Users\\Karina\\Desktop\\Gels_editor");
 		if(Files.notExists(path))
 		{
 			this.keyWindow();
@@ -433,7 +460,7 @@ public class View {
 		this.keyWindow.setSize(390, 180);
 		this.keyWindow.setTitle("KEY NEEDED TO INSTALL GELS EDITOR");
 		this.keyWindow.setLocationRelativeTo(null);
-		this.keyWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.keyWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.keyWindow.getContentPane().setLayout(null);
 		
 		JLabel lblKeyLabel = new JLabel("Insert the key:");
@@ -465,9 +492,9 @@ public class View {
 		if(this.localKey.equals(insertedKey))
 		{
 			this.permission= true;
+			this.createNewFolder();
 			this.keyWindow.setVisible(false);
 			this.frame.setVisible(true);
-			this.createNewFolder();
 		}
 	}
 	
@@ -476,6 +503,11 @@ public class View {
 	 */
 	private void createNewFolder()
 	{
-		
+		Path path = Paths.get("C:\\Users\\Karina\\Desktop\\Gels_editor");
+		try {
+			Files.createDirectory(path);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

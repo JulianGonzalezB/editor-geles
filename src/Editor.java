@@ -19,9 +19,11 @@ public class Editor {
 	
 	private int numberOfCols= 10;
 	private int numberOfRows= 1;
+	
 	private String colorOfText= "White";
-	private String infOrientation= "Horizontal";
+	private String infOrientation= "Vertical";
 	private int fontSize= 20;
+	private int infoSize= 20;
 	
 	private File labelsCSV= null;
 	private String [][] dataFromLabels= null;
@@ -99,6 +101,14 @@ public class Editor {
 	/**
 	 * 
 	 */
+	public void setInfoSize(int infoSize)
+	{
+		this.infoSize= infoSize;
+	}
+	
+	/**
+	 * 
+	 */
 	public void edit()
 	{
 		this.readLabels();
@@ -164,7 +174,7 @@ public class Editor {
 			int height= this.imageToEdit.getHeight();
 			int width= this.imageToEdit.getWidth();
 			Graphics graphics= this.imageToEdit.getGraphics();
-			int XSegment= width / (this.finalLabels.length / this.numberOfRows);
+			int XSegment= width / this.numberOfCols;
 			
 			if(this.colorOfText.equals("White"))
 			{
@@ -175,9 +185,8 @@ public class Editor {
 				graphics.setColor(Color.BLACK);
 			}
 			
-			graphics.setFont(new Font("Arial Black", Font.PLAIN, this.fontSize));
-			
 			//Draw the info of the gel
+			graphics.setFont(new Font("Arial Black", Font.PLAIN, this.infoSize));
 			//If Horizontal is selected
 			if(this.infOrientation.equals("Horizontal"))
 			{
@@ -188,21 +197,29 @@ public class Editor {
 				//If vertical is selected
 				for(int row= 0; row < this.numberOfInfoRows; row++)
 				{
-					graphics.drawString(this.dataFromLabels[row][1], width / 20, height / 2 + this.fontSize + 5);
+					graphics.drawString(this.dataFromLabels[row][1], width / 27, (height / 2 ) + row * this.infoSize + 10);
 				}
 			}
 			
+			graphics.setFont(new Font("Arial Black", Font.PLAIN, this.fontSize));
+			
 			//Draw the labels in the holes
-			for(int channel = 0; channel < this.finalLabels.length / this.numberOfRows; channel++)
+			for(int row= 0; row < this.numberOfCols; row++)
 			{
-				graphics.drawString(this.finalLabels[channel], (channel) * XSegment, height / 7 - 45);
+				for(int col= 0; col < this.numberOfColsInFile; col++)
+				{
+					graphics.drawString(this.dataFromLabels[row + 6][col], (row) * XSegment + 5, (height / 7 - 45) + col * (this.fontSize + 5));
+				}
 			}
 			
 			if(this.numberOfRows == 2)
 			{
-				for(int channel = 0; channel < this.finalLabels.length / this.numberOfRows; channel++)
+				for(int row= 0; row < this.numberOfCols; row++)
 				{
-					graphics.drawString(this.finalLabels[this.numberOfCols + channel], (channel)  * XSegment, 2 * (height / 3) + 40);
+					for(int col= 0; col < this.numberOfColsInFile; col++)
+					{
+						graphics.drawString(this.dataFromLabels[row + 6 + this.numberOfCols][col], (row) * XSegment + 5, (2 * (height / 3) + 40) + col * (this.fontSize + 5));
+					}
 				}
 			}
 			
