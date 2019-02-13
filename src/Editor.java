@@ -22,8 +22,8 @@ public class Editor {
 	
 	private String colorOfText= "White";
 	private String infOrientation= "Vertical";
-	private int fontSize= 20;
-	private int infoSize= 20;
+	private int fontSize= 5;
+	private int infoSize= 5;
 	
 	private File labelsCSV= null;
 	private String [][] dataFromLabels= null;
@@ -34,8 +34,6 @@ public class Editor {
 	private JFrame errorWindow= null;
 	
 	private String concatenatedInfo= null;
-	
-	private String [] finalLabels= null;
 	
 	private String saveLocationSelected= null;
 	
@@ -115,6 +113,8 @@ public class Editor {
 		this.writeLabels();
 		this.exportImage();
 		this.imageToEdit= null;
+		this.originalBI= null;
+		this.labelsCSV= null;
 	}
 	
 	/**
@@ -135,6 +135,14 @@ public class Editor {
 				inputLine= scanner.nextLine();
 				String[] wordsArray= inputLine.split(";");
 				
+				if(wordsArray.length != 2)
+				{
+					String[] definitiveArray= new String[2];
+					definitiveArray[0]= wordsArray[0];
+					definitiveArray[1]= wordsArray[1];
+					wordsArray= definitiveArray;
+				}
+				
 				for (int word= 0; word < wordsArray.length; word++)
 				{
 					this.dataFromLabels[row][word]= wordsArray[word];
@@ -152,7 +160,6 @@ public class Editor {
 			}
 			
 			this.concatenateInfo();
-			this.concatenateLabels();
 			scanner.close();
 			
 		}
@@ -197,7 +204,7 @@ public class Editor {
 				//If vertical is selected
 				for(int row= 0; row < this.numberOfInfoRows; row++)
 				{
-					graphics.drawString(this.dataFromLabels[row][1], width / 27, (height / 2 ) + row * this.infoSize + 10);
+					graphics.drawString(this.dataFromLabels[row][1], width / 27, (height / 2 ) + row * (this.infoSize + 20));
 				}
 			}
 			
@@ -208,7 +215,7 @@ public class Editor {
 			{
 				for(int col= 0; col < this.numberOfColsInFile; col++)
 				{
-					graphics.drawString(this.dataFromLabels[row + 6][col], (row) * XSegment + 5, (height / 7 - 45) + col * (this.fontSize + 5));
+					graphics.drawString(this.dataFromLabels[row + 6][col], (row) * XSegment + XSegment/4, (height / 7 - 45) + col * (this.fontSize + 5));
 				}
 			}
 			
@@ -218,7 +225,7 @@ public class Editor {
 				{
 					for(int col= 0; col < this.numberOfColsInFile; col++)
 					{
-						graphics.drawString(this.dataFromLabels[row + 6 + this.numberOfCols][col], (row) * XSegment + 5, (2 * (height / 3) + 40) + col * (this.fontSize + 5));
+						graphics.drawString(this.dataFromLabels[row + 6 + this.numberOfCols][col], (row) * XSegment + XSegment/4, (2 * (height / 3) + 40) + col * (this.fontSize + 5));
 					}
 				}
 			}
@@ -299,28 +306,6 @@ public class Editor {
 		
 		this.concatenatedInfo= infoString;
 		
-	}
-	
-	/**
-	 * 
-	 */
-	private void concatenateLabels()
-	{
-		this.finalLabels= new String[this.numberOfCols * this.numberOfRows];
-		String currentLabel= "";
-		int rowOfLabel= 6;
-		
-		for(int hole = 0; hole < this.numberOfCols * this.numberOfRows; hole++)
-		{
-			for(int col = 0; col < this.numberOfColsInFile; col++)
-			{
-				currentLabel += this.dataFromLabels[rowOfLabel][col];
-			}
-			
-			this.finalLabels[hole]= currentLabel;
-			currentLabel= "";
-			rowOfLabel++;
-		}
 	}
 	
 	/**

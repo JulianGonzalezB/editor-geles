@@ -58,7 +58,7 @@ public class View {
 				try {
 					View window = new View();
 					window.frame.setVisible(false);
-					Path path= Paths.get("C:\\Users\\Karina\\Desktop\\Gels_editor");
+					Path path= Paths.get("C:\\Gels_editor");
 					if(Files.exists(path))
 					{
 						window.frame.setVisible(true);
@@ -331,6 +331,11 @@ public class View {
 		fontSizeBox.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		fontSizeBox.setBounds(451, 248, 68, 26);
 		frame.getContentPane().add(fontSizeBox);
+		this.fontSizeBox.addItem("5");
+		this.fontSizeBox.addItem("10");
+		this.fontSizeBox.addItem("15");
+		this.fontSizeBox.addItem("20");
+		this.fontSizeBox.addItem("25");
 		this.fontSizeBox.addItem("30");
 		this.fontSizeBox.addItem("35");
 		this.fontSizeBox.addItem("40");
@@ -353,6 +358,11 @@ public class View {
 		infoSizeBox.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		infoSizeBox.setBounds(451, 286, 68, 26);
 		frame.getContentPane().add(this.infoSizeBox);
+		this.infoSizeBox.addItem("5");
+		this.infoSizeBox.addItem("10");
+		this.infoSizeBox.addItem("15");
+		this.infoSizeBox.addItem("20");
+		this.infoSizeBox.addItem("25");
 		this.infoSizeBox.addItem("30");
 		this.infoSizeBox.addItem("35");
 		this.infoSizeBox.addItem("40");
@@ -439,7 +449,7 @@ public class View {
 	 */
 	private  void checkIfFirstTime()
 	{
-		Path path= Paths.get("C:\\Users\\Karina\\Desktop\\Gels_editor");
+		Path path= Paths.get("C:\\Gels_editor");
 		if(Files.notExists(path))
 		{
 			this.keyWindow();
@@ -503,7 +513,7 @@ public class View {
 	 */
 	private void createNewFolder()
 	{
-		Path path = Paths.get("C:\\Users\\Karina\\Desktop\\Gels_editor");
+		Path path = Paths.get("C:\\Gels_editor");
 		try {
 			Files.createDirectory(path);
 		} catch (IOException e) {
