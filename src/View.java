@@ -6,6 +6,7 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+
 import java.awt.BorderLayout;
 import java.awt.Font;
 import javax.swing.JComboBox;
@@ -15,12 +16,20 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
@@ -31,12 +40,15 @@ public class View {
 
 	private JFrame frame;
 	
+	//Variables that describe the gels
 	private JComboBox<String> numberOfCols= null;
 	private JComboBox<String> numberOfRows= null;
 	
+	//Initial text of photo and labels
 	private String messagePhoto= "  ...";
 	private String messageLabels= "  ...";
 	
+	//Visual variables of the text in the gel
 	private JComboBox<String> orientationBox= null;
 	private JComboBox<String> textColorBox= null;
 	private JComboBox<String> fontSizeBox= null;
@@ -45,6 +57,7 @@ public class View {
 	private Editor editor= new Editor();
 	private JFrame keyWindow;
 	
+	//Variables for security
 	private String localKey= "XZF2#thOwe789";
 	private boolean permission= false;
 	private JTextField txtKey;
@@ -71,7 +84,7 @@ public class View {
 	}
 
 	/**
-	 * Create the application.
+	 * Create the main window and check the license.
 	 */
 	public View()
 	{
@@ -115,6 +128,7 @@ public class View {
 		this.textFormat();
 		
 		this.help();
+		this.creatGetCSVButton();
 	}
 	
 	/**
@@ -386,6 +400,7 @@ public class View {
 		btnHelp.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnHelp.setBounds(653, 11, 89, 23);
 		frame.getContentPane().add(btnHelp);
+		
 	}
 	
 	/**
@@ -396,6 +411,56 @@ public class View {
 		Border border= BorderFactory.createLineBorder(Color.BLACK, 1);
 		
 		return(border);
+	}
+	
+	/**
+	 * 
+	 */
+	private void creatGetCSVButton()
+	{
+		JButton btnGetCsvModel = new JButton("Get CSV Model");
+		btnGetCsvModel.addActionListener(new ActionListener()
+		{
+			private JFileChooser getModel= new JFileChooser();
+			
+			public void actionPerformed(ActionEvent arg0)
+			{
+				this.getModel.setCurrentDirectory(new File("c:\\temp"));
+				this.getModel.setFileFilter(new FileNameExtensionFilter("CSV files (*csv)", "csv"));
+				int ifSelected= this.getModel.showSaveDialog(frame);
+				
+				if (ifSelected == JFileChooser.APPROVE_OPTION)
+				{
+					try
+					{
+						InputStream inputStream = View.class.getResourceAsStream("/resources/model.csv");
+						
+						Scanner scanner= new Scanner(inputStream);
+						scanner.useDelimiter("\\n");
+						File modelCsv= new File(this.getModel.getSelectedFile().toString());
+						
+						BufferedWriter writer = new BufferedWriter(new FileWriter(modelCsv));
+						String line= null;
+						
+						while(scanner.hasNextLine())
+						{
+							line= scanner.nextLine();
+							writer.write(line);
+							writer.newLine();
+						}
+						
+						scanner.close();
+						writer.close();
+					}
+					catch (Exception ioe)
+					{
+						
+					}
+				}
+			}
+		});
+		btnGetCsvModel.setBounds(22, 10, 154, 25);
+		frame.getContentPane().add(btnGetCsvModel);
 	}
 	
 	/**
@@ -516,6 +581,7 @@ public class View {
 		Path path = Paths.get("C:\\Gels_editor");
 		try {
 			Files.createDirectory(path);
+			Files.setAttribute(path, "dos:hidden", true);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

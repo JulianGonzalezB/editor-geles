@@ -133,7 +133,7 @@ public class Editor {
 			while (scanner.hasNextLine())
 			{
 				inputLine= scanner.nextLine();
-				String[] wordsArray= inputLine.split(";");
+				String[] wordsArray= inputLine.split(",");
 				
 				if(wordsArray.length != 2)
 				{
@@ -165,7 +165,7 @@ public class Editor {
 		}
 		catch (FileNotFoundException e)
 		{
-			this.errorMessage= ".csv file not found. Please select a file and try again";
+			this.errorMessage= "Problems with .csv file. Please try again";
 			this.showErrorWindow();
 		}
 	}
