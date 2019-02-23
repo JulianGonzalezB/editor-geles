@@ -54,10 +54,13 @@ public class View {
 	private JComboBox<String> fontSizeBox= null;
 	private JComboBox<String> infoSizeBox= null;
 	
+	//Edition and preview
 	private Editor editor= new Editor();
-	private JFrame keyWindow;
+	private PreView preview= null;
+	private File photo= null;
 	
 	//Variables for security
+	private JFrame keyWindow;
 	private String localKey= "XZF2#thOwe789";
 	private boolean permission= false;
 	private JTextField txtKey;
@@ -211,6 +214,7 @@ public class View {
 						{
 							lblLoadPhoto.setText(openPhoto.getSelectedFile().toString());
 							editor.setPhoto(openPhoto.getSelectedFile());
+							photo= openPhoto.getSelectedFile();
 						}
 						catch (IOException ioe)
 						{
@@ -284,7 +288,13 @@ public class View {
 		JButton buttonRunEdition = new JButton("RUN EDITION");
 		buttonRunEdition.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				editor.edit();
+				
+				preview= new PreView();
+				preview.PreView();
+				preview.recieveEditor(editor);
+				preview.setOriginalPhoto(photo);
+				preview.setImgEdited(editor.edit());
+				
 			}
 		});
 		buttonRunEdition.setFont(new Font("Tahoma", Font.PLAIN, 16));

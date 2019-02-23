@@ -30,6 +30,12 @@ public class Editor {
 	private int numberOfColsInFile= 2;
 	private int numberOfInfoRows= 5;
 	
+	private int superiorX= 0;
+	private int superiorY= 0;
+	
+	private int inferiorX= 0;
+	private int inferiorY= 0;
+	
 	private String errorMessage= null;
 	private JFrame errorWindow= null;
 	
@@ -107,14 +113,12 @@ public class Editor {
 	/**
 	 * 
 	 */
-	public void edit()
+	public BufferedImage edit()
 	{
 		this.readLabels();
 		this.writeLabels();
-		this.exportImage();
-		this.imageToEdit= null;
-		this.originalBI= null;
-		this.labelsCSV= null;
+		
+		return this.imageToEdit;
 	}
 	
 	/**
@@ -194,6 +198,7 @@ public class Editor {
 			
 			//Draw the info of the gel
 			graphics.setFont(new Font("Arial Black", Font.PLAIN, this.infoSize));
+			
 			//If Horizontal is selected
 			if(this.infOrientation.equals("Horizontal"))
 			{
@@ -215,17 +220,18 @@ public class Editor {
 			{
 				for(int col= 0; col < this.numberOfColsInFile; col++)
 				{
-					graphics.drawString(this.dataFromLabels[row + 6][col], (row) * XSegment + XSegment/4, (height / 7 - 45) + col * (this.fontSize + 5));
+					graphics.drawString(this.dataFromLabels[row + 6][col], (row) * XSegment + XSegment/4 + this.superiorX, (height / 7 - 45) + col * (this.fontSize + 5) + this.superiorY);
 				}
 			}
 			
+			//If there are two rows in the gel
 			if(this.numberOfRows == 2)
 			{
 				for(int row= 0; row < this.numberOfCols; row++)
 				{
 					for(int col= 0; col < this.numberOfColsInFile; col++)
 					{
-						graphics.drawString(this.dataFromLabels[row + 6 + this.numberOfCols][col], (row) * XSegment + XSegment/4, (2 * (height / 3) + 40) + col * (this.fontSize + 5));
+						graphics.drawString(this.dataFromLabels[row + 6 + this.numberOfCols][col], (row) * XSegment + XSegment/4 + this.inferiorX, (2 * (height / 3) + 40) + col * (this.fontSize + 5) + this.inferiorY);
 					}
 				}
 			}
@@ -241,9 +247,41 @@ public class Editor {
 	
 	/**
 	 * 
+	 */
+	public void moveOneX(int distance)
+	{
+		this.superiorX= this.superiorX + distance;
+	}
+	
+	/**
 	 * 
 	 */
-	private void exportImage()
+	public void moveOneY(int distance)
+	{
+		this.superiorY= this.superiorY + distance;
+	}
+	
+	/**
+	 * 
+	 */
+	public void moveTwoX(int distance)
+	{
+		this.inferiorX= this.inferiorX + distance;
+	}
+	
+	/**
+	 * 
+	 */
+	public void moveTwoY(int distance)
+	{
+		this.inferiorY= this.inferiorY + distance;
+	}
+	
+	/**
+	 * 
+	 * 
+	 */
+	public void exportImage()
 	{
 		try
 		{
@@ -314,5 +352,25 @@ public class Editor {
 	public void setSaveLocation(String saveLocation)
 	{
 		this.saveLocationSelected= saveLocation;
+	}
+	
+	/**
+	 * 
+	 */
+	public void reset()
+	{
+		this.imageToEdit= null;
+		this.originalBI= null;
+		this.labelsCSV= null;
+	}
+	
+	/**
+	 * 
+	 */
+	public BufferedImage reEdit()
+	{
+		this.imageToEdit= null;
+		this.writeLabels();
+		return this.imageToEdit;
 	}
 }
