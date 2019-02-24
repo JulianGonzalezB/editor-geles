@@ -12,19 +12,32 @@ import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * Class for  presenting the edited image to the user
+ * And provides him/her a way to adjust details in the text position
+ * This class is instantiated by the class View
+ * @author julian
+ *
+ */
 public class PreView 
 {
+	//Window
 	private JFrame preframe;
+	//Image edited by the editor
 	private BufferedImage imgJustEdited= null;
+	//Editor
 	private Editor editor= null;
 	private JLabel lblImg= null;
+	//Original photo
 	private File photo= null;
 	
 	/**
+	 * Builder of the class
 	 * @wbp.parser.entryPoint
 	 */
 	public void PreView()
 	{
+		//Creates the window
 		preframe = new JFrame();
 		preframe.getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 15));
 		preframe.setSize(768, 580);
@@ -39,10 +52,13 @@ public class PreView
 	}
 	
 	/**
-	 * 
+	 * Method that creates the elements involved in the movement of the first row in both axis
+	 * passing the action to the editor for re-edit
+	 * @return void
 	 */
 	private void createMicroAdjustFirstRow()
 	{
+		//Moves the row upwards
 		JButton btnUp = new JButton("UP");
 		btnUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -55,10 +71,12 @@ public class PreView
 				rePaint(editor.reEdit());
 			}
 		});
+		
 		btnUp.setFont(new Font("Dialog", Font.BOLD, 9));
 		btnUp.setBounds(12, 64, 52, 25);
 		preframe.getContentPane().add(btnUp);
 		
+		//Moves the row downwards
 		JButton btnDown = new JButton("DOWN");
 		btnDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -71,10 +89,12 @@ public class PreView
 				rePaint(editor.reEdit());
 			}
 		});
+		
 		btnDown.setFont(new Font("Dialog", Font.BOLD, 9));
 		btnDown.setBounds(12, 88, 71, 25);
 		preframe.getContentPane().add(btnDown);
 		
+		//Moves the row leftwards
 		JButton btnLeft = new JButton("LEFT");
 		btnLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -87,10 +107,12 @@ public class PreView
 				rePaint(editor.reEdit());
 			}
 		});
+		
 		btnLeft.setFont(new Font("Dialog", Font.BOLD, 9));
 		btnLeft.setBounds(257, 12, 71, 25);
 		preframe.getContentPane().add(btnLeft);
 		
+		//Moves the row rightwards
 		JButton btnRight = new JButton("RIGHT");
 		btnRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -103,6 +125,7 @@ public class PreView
 				rePaint(editor.reEdit());
 			}
 		});
+		
 		btnRight.setFont(new Font("Dialog", Font.BOLD, 9));
 		btnRight.setBounds(340, 12, 63, 25);
 		preframe.getContentPane().add(btnRight);
@@ -111,10 +134,13 @@ public class PreView
 	}
 	
 	/**
-	 * 
+	 * Method that creates the elements involved in the movement of the second row in both axis
+	 * passing the action to the editor for re-edit
+	 * @return void
 	 */
 	private void createMicroAdjustSecondRow()
 	{
+		//Moves the row upwards
 		JButton btnUp_1 = new JButton("UP");
 		btnUp_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -131,6 +157,7 @@ public class PreView
 		btnUp_1.setBounds(12, 324, 52, 25);
 		preframe.getContentPane().add(btnUp_1);
 		
+		//Moves the row downwards
 		JButton btnDown_1 = new JButton("DOWN");
 		btnDown_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -143,10 +170,12 @@ public class PreView
 				rePaint(editor.reEdit());
 			}
 		});
+		
 		btnDown_1.setFont(new Font("Dialog", Font.BOLD, 9));
 		btnDown_1.setBounds(12, 351, 71, 25);
 		preframe.getContentPane().add(btnDown_1);
 		
+		//Moves the row leftwards
 		JButton btnLeft_1 = new JButton("LEFT");
 		btnLeft_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -159,10 +188,12 @@ public class PreView
 				rePaint(editor.reEdit());
 			}
 		});
+		
 		btnLeft_1.setFont(new Font("Dialog", Font.BOLD, 9));
 		btnLeft_1.setBounds(257, 506, 71, 25);
 		preframe.getContentPane().add(btnLeft_1);
 		
+		//Moves the row rightwards
 		JButton btnRight_1 = new JButton("RIGHT");
 		btnRight_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -175,6 +206,7 @@ public class PreView
 				rePaint(editor.reEdit());
 			}
 		});
+		
 		btnRight_1.setFont(new Font("Dialog", Font.BOLD, 9));
 		btnRight_1.setBounds(340, 506, 63, 25);
 		preframe.getContentPane().add(btnRight_1);
@@ -182,7 +214,9 @@ public class PreView
 	}
 	
 	/**
-	 * 
+	 * Method that sets the edited image for show it to the user in the preview window
+	 * @param img is a BufferedImage is the image edited by the editor
+	 * @return void
 	 */
 	public void setImgEdited(BufferedImage img)
 	{
@@ -191,7 +225,8 @@ public class PreView
 	}
 	
 	/**
-	 * 
+	 * Method that puts the image in the window using a JLabel
+	 * @return void
 	 */
 	private void showImg()
 	{
@@ -202,7 +237,9 @@ public class PreView
 	}
 	
 	/**
-	 * 
+	 * Method that save the image as an order from the user
+	 * calls the method Export of the editor and the method Reset
+	 * @return void
 	 */
 	private void saveButton()
 	{
@@ -219,8 +256,12 @@ public class PreView
 	}
 	
 	/**
-	 * Function to resize the image for preview.
-	 * Function took from Stack overflow.
+	 * Method to resize the image for preview.
+	 * Method took from Stack overflow.
+	 * @param img is a BufferedImage to resize
+	 * @param newWidth is an integer for the new width of the image
+	 * @param newHeight is an integer for the new height of the image
+	 * @return BufferedImage resized
 	 */
 	public BufferedImage resize(BufferedImage img, int newWidth, int newHeight) { 
 	    Image temporal = img.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
@@ -234,7 +275,9 @@ public class PreView
 	}
 	
 	/**
-	 * 
+	 * Method for repainting the image presented
+	 * @param img is a BufferedImage to present
+	 * @return void
 	 */
 	private void rePaint(BufferedImage img)
 	{
@@ -243,15 +286,19 @@ public class PreView
 	}
 	
 	/**
-	 * 
+	 * Method for receiving the editor from the View
+	 * @param receivedEditor is the editor
+	 * @return void
 	 */
-	public void recieveEditor(Editor recievedEditor)
+	public void receiveEditor(Editor receivedEditor)
 	{
-		this.editor= recievedEditor;
+		this.editor= receivedEditor;
 	}
 	
 	/**
-	 * 
+	 * Method to receive the original, non-edited, photo
+	 * @param photo is the file.JPEG selected by the user
+	 * @return void
 	 */
 	public void setOriginalPhoto(File photo)
 	{
