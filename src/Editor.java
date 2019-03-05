@@ -51,6 +51,9 @@ public class Editor {
 	////For the second row of labels
 	private int inferiorX= 0;
 	private int inferiorY= 0;
+	////For the Info text
+	private int infoY= 0;
+	private int infoX= 0;
 	
 	//If there any error
 	private String errorMessage= null;
@@ -263,7 +266,7 @@ public class Editor {
 				//If vertical is selected
 				for(int row= 0; row < this.numberOfInfoRows; row++)
 				{
-					graphics.drawString(this.dataFromLabels[row][1], width / 27, (height / 2 ) + row * (this.infoSize + 20));
+					graphics.drawString(this.dataFromLabels[row][1], width / 27 + this.infoX, (height / 2 ) + row * (this.infoSize + 20) + this.infoY);
 				}
 			}
 			
@@ -274,7 +277,12 @@ public class Editor {
 			{
 				for(int col= 0; col < this.numberOfColsInFile; col++)
 				{
-					graphics.drawString(this.dataFromLabels[row + 6][col], (row) * XSegment + XSegment/4 + this.superiorX, (height / 7 - 45) + col * (this.fontSize + 5) + this.superiorY);
+					//If the field is not empty in the gel
+					if(!this.dataFromLabels[row + 6][col].contentEquals("NA"))
+					{
+						graphics.drawString(this.dataFromLabels[row + 6][col], (row) * XSegment + XSegment/4 + this.superiorX, (height / 7 - 45) + col * (this.fontSize + 5) + this.superiorY);
+					}
+					
 				}
 			}
 			
@@ -285,7 +293,11 @@ public class Editor {
 				{
 					for(int col= 0; col < this.numberOfColsInFile; col++)
 					{
-						graphics.drawString(this.dataFromLabels[row + 6 + this.numberOfCols][col], (row) * XSegment + XSegment/4 + this.inferiorX, (2 * (height / 3) + 40) + col * (this.fontSize + 5) + this.inferiorY);
+						//If the field is not empty in the gel
+						if(!this.dataFromLabels[row + 6 + this.numberOfCols][col].equals("NA"))
+						{
+							graphics.drawString(this.dataFromLabels[row + 6 + this.numberOfCols][col], (row) * XSegment + XSegment/4 + this.inferiorX, (2 * (height / 3) + 40) + col * (this.fontSize + 5) + this.inferiorY);
+						}
 					}
 				}
 			}
@@ -341,6 +353,28 @@ public class Editor {
 	public void moveTwoY(int distance)
 	{
 		this.inferiorY= this.inferiorY + distance;
+	}
+	
+	/**
+	 * Method that moves the info text in the X axis
+	 * @param distance is an integer is the number of pixels the text is going to move
+	 * This method is executed by the preview
+	 * @return void
+	 */
+	public void moveInfoX(int distance)
+	{
+		this.infoX= this.infoX + distance;
+	}
+	
+	/**
+	 * Method that moves the info text in the Y axis
+	 * @param distance is an integer is the number of pixels the text is going to move
+	 * This method is executed by the preview
+	 * @return void
+	 */
+	public void moveInfoY(int distance)
+	{
+		this.infoY= this.infoY + distance;
 	}
 	
 	/**

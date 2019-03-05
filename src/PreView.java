@@ -40,13 +40,14 @@ public class PreView
 		//Creates the window
 		preframe = new JFrame();
 		preframe.getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 15));
-		preframe.setSize(768, 580);
+		preframe.setSize(768, 680);
 		preframe.setTitle("GELS EDITOR PREVIEW");
 		preframe.setLocationRelativeTo(null);
 		preframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		preframe.getContentPane().setLayout(null);
 		this.createMicroAdjustFirstRow();
 		this.createMicroAdjustSecondRow();
+		this.createMicroAdjustInfo();
 		this.saveButton();
 		this.preframe.setVisible(true);
 	}
@@ -58,6 +59,11 @@ public class PreView
 	 */
 	private void createMicroAdjustFirstRow()
 	{
+		JLabel lblSuperiorLabels = new JLabel("Superior Labels");
+		lblSuperiorLabels.setFont(new Font("Dialog", Font.BOLD, 14));
+		lblSuperiorLabels.setBounds(16, 15, 126, 15);
+		preframe.getContentPane().add(lblSuperiorLabels);
+		
 		//Moves the row upwards
 		JButton btnUp = new JButton("UP");
 		btnUp.addActionListener(new ActionListener() {
@@ -140,6 +146,11 @@ public class PreView
 	 */
 	private void createMicroAdjustSecondRow()
 	{
+		JLabel lblInferiorLabels = new JLabel("Inferior Labels");
+		lblInferiorLabels.setFont(new Font("Dialog", Font.BOLD, 14));
+		lblInferiorLabels.setBounds(12, 597, 130, 15);
+		preframe.getContentPane().add(lblInferiorLabels);
+		
 		//Moves the row upwards
 		JButton btnUp_1 = new JButton("UP");
 		btnUp_1.addActionListener(new ActionListener() {
@@ -154,7 +165,7 @@ public class PreView
 			}
 		});
 		btnUp_1.setFont(new Font("Dialog", Font.BOLD, 9));
-		btnUp_1.setBounds(12, 324, 52, 25);
+		btnUp_1.setBounds(12, 480, 52, 25);
 		preframe.getContentPane().add(btnUp_1);
 		
 		//Moves the row downwards
@@ -172,7 +183,7 @@ public class PreView
 		});
 		
 		btnDown_1.setFont(new Font("Dialog", Font.BOLD, 9));
-		btnDown_1.setBounds(12, 351, 71, 25);
+		btnDown_1.setBounds(12, 504, 71, 25);
 		preframe.getContentPane().add(btnDown_1);
 		
 		//Moves the row leftwards
@@ -190,7 +201,7 @@ public class PreView
 		});
 		
 		btnLeft_1.setFont(new Font("Dialog", Font.BOLD, 9));
-		btnLeft_1.setBounds(257, 506, 71, 25);
+		btnLeft_1.setBounds(257, 587, 71, 25);
 		preframe.getContentPane().add(btnLeft_1);
 		
 		//Moves the row rightwards
@@ -208,9 +219,90 @@ public class PreView
 		});
 		
 		btnRight_1.setFont(new Font("Dialog", Font.BOLD, 9));
-		btnRight_1.setBounds(340, 506, 63, 25);
+		btnRight_1.setBounds(340, 587, 63, 25);
 		preframe.getContentPane().add(btnRight_1);
 		
+	}
+	
+	/**
+	 * Method that creates the elements involved in the movement of the info text in both axis
+	 * passing the action to the editor for re-edit
+	 * @return void
+	 */
+	private void createMicroAdjustInfo()
+	{
+		JLabel lblInfoText = new JLabel("Info Text");
+		lblInfoText.setFont(new Font("Dialog", Font.BOLD, 14));
+		lblInfoText.setBounds(16, 227, 83, 15);
+		preframe.getContentPane().add(lblInfoText);
+		
+		//Moves the info upwards
+		JButton btnUp_2 = new JButton("UP");
+		btnUp_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				editor.moveInfoY(-10);
+				try {
+					editor.setPhoto(photo);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				rePaint(editor.reEdit());
+			}
+		});
+		btnUp_2.setFont(new Font("Dialog", Font.BOLD, 7));
+		btnUp_2.setBounds(31, 257, 52, 25);
+		preframe.getContentPane().add(btnUp_2);
+		
+		//Moves the info leftwards
+		JButton btnLeft_2 = new JButton("LEFT");
+		btnLeft_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				editor.moveInfoX(-10);
+				try {
+					editor.setPhoto(photo);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				rePaint(editor.reEdit());
+			}
+		});
+		btnLeft_2.setFont(new Font("Dialog", Font.BOLD, 7));
+		btnLeft_2.setBounds(12, 283, 52, 25);
+		preframe.getContentPane().add(btnLeft_2);
+		
+		//Moves the info rightwards
+		JButton btnRight_2 = new JButton("RIGHT");
+		btnRight_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				editor.moveInfoX(10);
+				try {
+					editor.setPhoto(photo);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				rePaint(editor.reEdit());
+			}
+		});
+		btnRight_2.setFont(new Font("Dialog", Font.BOLD, 7));
+		btnRight_2.setBounds(66, 283, 63, 25);
+		preframe.getContentPane().add(btnRight_2);
+		
+		//Moves the info downwards
+		JButton btnDown_2 = new JButton("DOWN");
+		btnDown_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				editor.moveInfoY(10);
+				try {
+					editor.setPhoto(photo);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				rePaint(editor.reEdit());
+			}
+		});
+		btnDown_2.setFont(new Font("Dialog", Font.BOLD, 7));
+		btnDown_2.setBounds(31, 308, 64, 25);
+		preframe.getContentPane().add(btnDown_2);
 	}
 	
 	/**
@@ -220,7 +312,7 @@ public class PreView
 	 */
 	public void setImgEdited(BufferedImage img)
 	{
-		this.imgJustEdited= this.resize(img, 608, 435);
+		this.imgJustEdited= this.resize(img, 608, 525);
 		this.showImg();
 	}
 	
@@ -232,7 +324,7 @@ public class PreView
 	{
 		this.lblImg = new JLabel("");
 		lblImg.setIcon(new ImageIcon(this.imgJustEdited));
-		lblImg.setBounds(114, 41, 608, 435);
+		lblImg.setBounds(135, 41, 608, 525);
 		preframe.getContentPane().add(lblImg);
 	}
 	
@@ -251,8 +343,9 @@ public class PreView
 				preframe.setVisible(false);
 			}
 		});
-		btnSave.setBounds(620, 504, 115, 25);
+		btnSave.setBounds(619, 585, 115, 25);
 		preframe.getContentPane().add(btnSave);
+		
 	}
 	
 	/**
@@ -281,7 +374,7 @@ public class PreView
 	 */
 	private void rePaint(BufferedImage img)
 	{
-		this.imgJustEdited= this.resize(img, 608, 435);
+		this.imgJustEdited= this.resize(img, 608, 525);
 		this.lblImg.setIcon(new ImageIcon(this.imgJustEdited));
 	}
 	
