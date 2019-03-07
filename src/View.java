@@ -228,7 +228,8 @@ public class View {
 				public void actionPerformed(ActionEvent e) {
 					
 					//Sets the initial directory
-					this.openPhoto.setCurrentDirectory(new File("c:\\temp"));
+					String userDir = System.getProperty("user.home");
+					this.openPhoto.setCurrentDirectory(new File(userDir + "\\Desktop"));
 					//Sets the filter
 					this.openPhoto.setFileFilter(new FileNameExtensionFilter("JPEG file", "jpg", "jpeg"));
 					int ifOpen= this.openPhoto.showOpenDialog(frame);
@@ -290,7 +291,8 @@ public class View {
 			public void actionPerformed(ActionEvent e) {
 				
 				//Sets the initial directory
-				this.openLabels.setCurrentDirectory(new File("c:\\temp"));
+				String userDir = System.getProperty("user.home");
+				this.openLabels.setCurrentDirectory(new File(userDir + "\\Desktop"));
 				this.openLabels.setFileFilter(new FileNameExtensionFilter( "CSV files (*csv)", "csv"));
 				int ifOpen= this.openLabels.showOpenDialog(frame);
 				
@@ -573,7 +575,8 @@ public class View {
 			public void actionPerformed(ActionEvent arg0) 
 			{
 				//Sets the default directory
-				this.location.setCurrentDirectory(new File("c:\\temp"));
+				String userDir = System.getProperty("user.home");
+				this.location.setCurrentDirectory(new File(userDir + "\\Desktop"));
 				this.location.setFileFilter(new FileNameExtensionFilter("JPEG file", "jpg", "jpeg"));
 				int ifSelected= this.location.showSaveDialog(frame);
 				

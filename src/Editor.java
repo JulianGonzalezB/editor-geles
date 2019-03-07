@@ -306,7 +306,7 @@ public class Editor {
 		catch(Exception e)
 		{
 			System.err.println(e);
-			this.errorMessage= "ERROR IN EDITING IMAGE";
+			this.errorMessage= "ERROR IN EDITING IMAGE. Please Check the number of total rows in the .csv file";
 			this.showErrorWindow();
 		}
 	}
@@ -407,7 +407,7 @@ public class Editor {
 		//Window
 		this.errorWindow= new JFrame();
 		this.errorWindow.getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 15));
-		this.errorWindow.setSize(260, 180);
+		this.errorWindow.setSize(360, 180);
 		this.errorWindow.setTitle("ERROR");
 		this.errorWindow.setLocationRelativeTo(null);
 		this.errorWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -417,8 +417,8 @@ public class Editor {
 		
 		//Message
 		JLabel error = new JLabel(this.errorMessage);
-		error.setBounds(32, 151, 112, 28);
-		error.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		error.setBounds(80, 80, 200, 50);
+		error.setFont(new Font("Tahoma", Font.PLAIN, 8));
 		this.errorWindow.add(error, BorderLayout.CENTER);
 		
 		this.errorWindow.setVisible(true);
@@ -465,6 +465,7 @@ public class Editor {
 	 */
 	public void setSaveLocation(String saveLocation)
 	{
+		saveLocation= saveLocation + ".jpg";
 		this.saveLocationSelected= saveLocation;
 	}
 	
