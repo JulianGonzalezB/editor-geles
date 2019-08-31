@@ -166,12 +166,26 @@ public class View {
 		//Sets the options to be displayed in the ComboBox.
 		numberOfCols.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		numberOfCols.setBounds(154, 209, 82, 26);
+		this.numberOfCols.addItem("5");
+		this.numberOfCols.addItem("6");
+		this.numberOfCols.addItem("7");
+		this.numberOfCols.addItem("8");
+		this.numberOfCols.addItem("9");
 		this.numberOfCols.addItem("10");
+		this.numberOfCols.addItem("11");
+		this.numberOfCols.addItem("12");
 		this.numberOfCols.addItem("13");
 		this.numberOfCols.addItem("14");
+		this.numberOfCols.addItem("15");
 		this.numberOfCols.addItem("16");
+		this.numberOfCols.addItem("17");
+		this.numberOfCols.addItem("18");
+		this.numberOfCols.addItem("19");
 		this.numberOfCols.addItem("20");
 		this.numberOfCols.addItem("21");
+		this.numberOfCols.addItem("22");
+		this.numberOfCols.addItem("23");
+		this.numberOfCols.addItem("24");
 		frame.getContentPane().add(numberOfCols);
 	}
 	
@@ -418,7 +432,15 @@ public class View {
 		fontSizeBox.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		fontSizeBox.setBounds(451, 248, 68, 26);
 		frame.getContentPane().add(fontSizeBox);
+		this.fontSizeBox.addItem("1");
+		this.fontSizeBox.addItem("2");
+		this.fontSizeBox.addItem("3");
+		this.fontSizeBox.addItem("4");
 		this.fontSizeBox.addItem("5");
+		this.fontSizeBox.addItem("6");
+		this.fontSizeBox.addItem("7");
+		this.fontSizeBox.addItem("8");
+		this.fontSizeBox.addItem("9");
 		this.fontSizeBox.addItem("10");
 		this.fontSizeBox.addItem("15");
 		this.fontSizeBox.addItem("20");
@@ -449,7 +471,15 @@ public class View {
 		infoSizeBox.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		infoSizeBox.setBounds(451, 286, 68, 26);
 		frame.getContentPane().add(this.infoSizeBox);
+		this.infoSizeBox.addItem("1");
+		this.infoSizeBox.addItem("2");
+		this.infoSizeBox.addItem("3");
+		this.infoSizeBox.addItem("4");
 		this.infoSizeBox.addItem("5");
+		this.infoSizeBox.addItem("6");
+		this.infoSizeBox.addItem("7");
+		this.infoSizeBox.addItem("8");
+		this.infoSizeBox.addItem("9");
 		this.infoSizeBox.addItem("10");
 		this.infoSizeBox.addItem("15");
 		this.infoSizeBox.addItem("20");
